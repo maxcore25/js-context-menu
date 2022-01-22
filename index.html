@@ -7,6 +7,10 @@
     <title>JS Context Menu</title>
     <style>
       .custom-cm {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: none;
         background: #fff;
         border: 1px solid #ccc;
         box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
@@ -16,9 +20,14 @@
       .custom-cm__item {
         cursor: pointer;
         padding: 8px 15px;
+        font-family: sans-serif;
       }
       .custom-cm__item:hover {
         background: #f8f8f8;
+      }
+      .custom-cm__divider {
+        border-bottom: 1px solid #eee;
+        margin: 10px 0;
       }
     </style>
   </head>
@@ -30,6 +39,28 @@
       <div class="custom-cm__divider"></div>
       <div class="custom-cm__item">Item #4</div>
     </div>
-    <script></script>
+    <script>
+      const cm = document.querySelector('.custom-cm');
+
+      function showContextMenu(show = true) {
+        cm.style.display = show ? 'block' : 'none';
+      }
+
+      window.addEventListener('contextmenu', e => {
+        e.preventDefault();
+        showContextMenu();
+        console.log(e);
+        cm.style.top =
+          e.y + cm.offsetHeight > window.innerHeight
+            ? window.innerHeight - cm.offsetHeight
+            : e.y + 'px';
+        cm.style.left =
+          e.x + cm.offsetWidth > window.innerWidth
+            ? window.innerWidth - cm.offsetWidth
+            : e.x + 'px';
+      });
+
+      window.addEventListener('click', () => showContextMenu(false));
+    </script>
   </body>
 </html>
