@@ -32,6 +32,7 @@
     </style>
   </head>
   <body>
+    <h1>Right click everywhere</h1>
     <div class="custom-cm">
       <div class="custom-cm__item">Item #1</div>
       <div class="custom-cm__item">Item #2</div>
@@ -49,7 +50,7 @@
       window.addEventListener('contextmenu', e => {
         e.preventDefault();
         showContextMenu();
-        console.log(e);
+
         cm.style.top =
           e.y + cm.offsetHeight > window.innerHeight
             ? window.innerHeight - cm.offsetHeight
